@@ -1,0 +1,226 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Link para utilizar o Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="paciente.css">
+
+    <title>Cadastro Paciente</title>
+</head>
+
+
+
+<body>
+    <nav>
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid">
+                <!--<a class="navbar-brand" href="#">Meta Saúde</a>-->
+                <a class="navbar-brand" href="principal.html">
+                    <img src="img/farmacia.png" alt="Bootstrap" width="55" height="40">Meta Saúde
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- <header>
+        <div class="topnav" id="myTopnav">
+            <a href="#contato">Contato</a>
+            <a href="#medicos">Médicos</a>
+            <a href="#horarios">Horários</a>
+            <a href="#usuarios" class="active">Usuários</a>
+            <div class="brand"><a href="principal.html">Meta Saúde</a></div>
+        </div>
+    </header>-->
+
+        <h1>Cadastrar Paciente</h1>
+
+        <form id="contactForm">
+            <div>
+                <label for="nome">Nome:</label>
+                <input id="name" placeholder="Nome" type="text" required>
+            </div>
+
+            <div>
+                <label for="cpf">CPF:</label>
+                <input placeholder="Digite o CPF do Paciente" id="cpf" type="text" required>
+                <label for="data">Data Nasc:</label>
+                <input id="aniv" placeholder="Digite sua Idade" type="date" required>
+
+            </div>
+
+            <div>
+                <label for="endereco">Endereço:</label>
+                <input id="end" placeholder="Digite o Endereço" type="text" required>
+            </div>
+
+            <div>
+                <label for="city">Cidade/UF:</label>
+                <input id="cep" placeholder="Digite a Cidade/UF" type="text" required>
+            </div>
+
+            <div>
+                <label for="diag">Diagnóstico:</label>
+                <input id="diag" placeholder="Digite aqui" type="text" required>
+            </div>
+
+            <div id="compl">
+                <label for="comp">Complemento:</label>
+                <textarea id="text"></textarea>
+            </div>
+            <div class="button">
+                <button id="botao" type="submit" value="Gravar">Gravar</button>
+            </div>
+
+        </form>
+
+
+
+
+        <!--Rodapé da página-->
+        <footer>
+            <p>Desenvolvido por Matriz Sistemas &copy; 2023<br>
+                <span class="separator">|</span>
+                <a href="#">Política de Privacidade</a>
+            </p>
+        </footer>
+
+        <!-- Inclua a biblioteca do Firebase-->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <!--<script src="user.js"></script>-->
+
+
+
+        <script>
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
+                authDomain: "meta-sau.firebaseapp.com",
+                projectId: "meta-sau",
+                storageBucket: "meta-sau.appspot.com",
+                messagingSenderId: "635471066942",
+                appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+
+            //Criando instância para o Realtime Database
+            const database = firebase.database();
+
+            //Criando instância para o Cloud Firestore
+            const db = firebase.firestore();
+            const providerData = null;
+
+            // Manipulando o evento de envio do formulário
+            const form = document.querySelector('#contactForm');
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+
+                // Obtendo os dados do formulário
+                const name = form.name.value;
+                const cpf = form.cpf.value;
+                const aniv = form.aniv.value;
+                const end = form.end.value;
+                const cep = form.cep.value;
+                const diag = form.diag.value;
+                const text = form.text.value;
+
+                // Obtendo o usuário logado atualmente
+                const currentUser = localStorage.getItem('currentUser');
+
+                try {
+                    // Consultando a coleção "usuarios" para verificar se o usuário existe
+                    const usuariosSnapshot = await db.collection('usuarios').where('login', '==', currentUser).get();
+                    if (!usuariosSnapshot.empty) {
+                        // O usuário existe na coleção "usuarios"
+                        const user = usuariosSnapshot.docs[0].data();
+                        const operadora = user.operadora;
+
+                        // Salvando os dados do paciente na coleção "pacientes"
+                        const pacienteData = {
+                            name: name,
+                            cpf: cpf,
+                            aniv: aniv,
+                            operadora: operadora,
+                            end: end,
+                            cep: cep,
+                            diag: diag,
+                            text: text
+                        };
+
+                        // Obtendo a referência para a coleção "pacientes"
+                        const pacientesRef = db.collection('pacientes');
+
+                        // Adicionando o paciente à coleção "pacientes"
+                        await pacientesRef.add(pacienteData);
+
+                        console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
+                        form.reset(); // Limpando o formulário após o envio
+
+                        // Exibindo mensagem de sucesso
+                        const successMessage = document.createElement('p');
+                        successMessage.textContent = 'Cadastro Realizado com Sucesso! Retornando a página principal.';
+                        form.appendChild(successMessage);
+                        // Redirecionando para a página principal após 5 segundos
+                        setTimeout(() => {
+                            window.location.href = 'principal.html';
+                        }, 5000); // 5000 milissegundos = 5 segundos
+                    } else {
+                        // Se o usuário não existe na coleção "usuarios", verificar na coleção "hospitais"
+                        const hospitaisSnapshot = await db.collection('hospitais').where('login', '==', currentUser).get();
+                        if (!hospitaisSnapshot.empty) {
+                            // O usuário existe na coleção "hospitais"
+                            const hospital = hospitaisSnapshot.docs[0].data();
+                            const operadora = hospital.operadora;
+
+                            // Salvando os dados do paciente na coleção "pacientes"
+                            const pacienteData = {
+                                name: name,
+                                cpf: cpf,
+                                aniv: aniv,
+                                operadora: operadora,
+                                end: end,
+                                cep: cep,
+                                diag: diag,
+                                text: text
+                            };
+
+                            // Obtendo a referência para a coleção "pacientes"
+                            const pacientesRef = db.collection('pacientes');
+
+                            // Adicionando o paciente à coleção "pacientes"
+                            await pacientesRef.add(pacienteData);
+
+                            console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
+                            form.reset(); // Limpando o formulário após o envio
+                            // Exibindo mensagem de sucesso
+                            const successMessage = document.createElement('p');
+                            successMessage.textContent = 'Cadastro Realizado com Sucesso! Retornando a página principal em 5 segundos.';
+                            form.appendChild(successMessage)
+                            // Redirecionando para a página principal após 5 segundos
+                            setTimeout(() => {
+                                window.location.href = 'principal.html';
+                            }, 3000); // 5000 milissegundos = 5 segundos
+                        } else {
+                            console.error("Usuário não encontrado nas coleções 'usuarios' e 'hospitais'.");
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar usuário:', error);
+                }
+            });
+        </script>
+
+</body>
+
+
+</html>

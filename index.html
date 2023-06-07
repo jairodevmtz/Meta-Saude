@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Teste</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="email-login">Email:</label>
+      <input type="email" id="email-login" placeholder="Digite seu email">
+    </div>
+    <div class="form-group">
+      <label for="password-login">Senha:</label>
+      <input type="password" id="password-login" placeholder="Digite sua senha">
+    </div>
+    <input id="terms" type="checkbox">
+    <label for="terms"></label>
+    <span>Lembre de mim</span><br><br>
+    <div class="form-group">
+      <button onclick="login()">Login</button>
+    </div>
+    <a href="recusenha.html" id="recsenha">Esqueceu sua Senha?</a>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <!--<script src="user.js"></script>-->
+
+  <script>
+    // Configurar a inicialização do Firebase com suas credenciais
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
+      authDomain: "meta-sau.firebaseapp.com",
+      projectId: "meta-sau",
+      storageBucket: "meta-sau.appspot.com",
+      messagingSenderId: "635471066942",
+      appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    function login() {
+
+      const email = document.getElementById("email-login").value;
+      const password = document.getElementById("password-login").value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          const userEmail = user.email;
+
+          const usuariosRef = firebase.firestore().collection("usuarios");
+          const hospitaisRef = firebase.firestore().collection("hospitais");
+
+          usuariosRef.where("login", "==", userEmail).get()
+            .then((querySnapshot) => {
+              if (!querySnapshot.empty) {
+                localStorage.setItem('currentUser', userEmail);
+                window.location.href = "principal.html";
+              } else {
+                hospitaisRef.where("login", "==", userEmail).get()
+                  .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                      []
+                      localStorage.setItem('currentUser', userEmail);
+                      window.location.href = "hospital.html";
+                    } else {
+                      console.error("Usuário não encontrado");
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("Erro ao buscar usuário no Firestore:", error);
+                  });
+              }
+            })
+            .catch((error) => {
+              console.error("Erro ao buscar usuário no Firestore:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Erro ao autenticar usuário:", error);
+        });
+    }
+  </script>
+</body>
+
+</html>

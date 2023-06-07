@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="dados.css">
+    <title>Formulário do Paciente</title>
+</head>
+
+<body>
+    <nav>
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid">
+                <!--<a class="navbar-brand" href="#">Meta Saúde</a>-->
+                <a class="navbar-brand" href="hospital.html">
+                    <img src="img/farmacia.png" alt="Bootstrap" width="55" height="40">Meta Saúde
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- <header>
+        <div class="topnav" id="myTopnav">
+            <a href="#contato">Contato</a>
+            <a href="#medicos">Médicos</a>
+            <a href="#horarios">Horários</a>
+            <a href="#usuarios" class="active">Usuários</a>
+            <div class="brand"><a href="hospital.html">Meta Saúde</a></div>
+        </div>
+    </header>-->
+
+
+        <h1>Dados do Paciente</h1>
+
+        <div id="formulario-container"></div>
+
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <script src="user.js"></script>
+        <script src="formulario.js"></script>
+</body>
+
+</html>

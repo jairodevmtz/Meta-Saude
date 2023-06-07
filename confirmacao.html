@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Link para utilizar o Bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="confirm.css">
+  <title>Confirmação de Oferta</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="topnav" id="myTopnav">
+      <a href="#contato">Contato</a>
+      <a href="#medicos">Médicos</a>
+      <a href="#horarios">Horários</a>
+      <a href="#usuarios" class="active">Usuários</a>
+      <div class="brand"><a href="principal.html">Meta Saúde</a></div>
+    </div>
+  </header>
+
+  <h1>Oferta Confirmada</h1>
+  <form>
+    <h1>Confirmando a oferta</h1>
+
+    <div class="button">
+      <button id="btn-sim" type="button">Sim</button>
+
+    </div>
+
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="user.js"></script>
+  <script>
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
+      authDomain: "meta-sau.firebaseapp.com",
+      projectId: "meta-sau",
+      storageBucket: "meta-sau.appspot.com",
+      messagingSenderId: "635471066942",
+      appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    const btnSim = document.getElementById('btn-sim');
+
+
+    btnSim.addEventListener('click', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nome = urlParams.get('nome');
+      const email = urlParams.get('email');
+      const telefone = urlParams.get('telefone');
+      const valor = urlParams.get('valor');
+      const periodo = urlParams.get('periodo');
+      const obs = urlParams.get('obs');
+
+      enviarOferta(nome, email, telefone, valor, periodo, obs)
+        .then(() => {
+          alert('Oferta enviada com sucesso!');
+          window.location.href = 'principal.html';
+        })
+        .catch((error) => {
+          console.error('Erro ao enviar oferta:', error);
+        });
+
+    });
+
+
+
+    function enviarOferta(nome, email, telefone, valor, periodo, obs) {
+      const recebidoData = {
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        valor: valor,
+        periodo: periodo,
+        obs: obs,
+      };
+
+      return db.collection('recebidos').add(recebidoData);
+    }
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="oferta.css">
+  <title>Oferta Pacientes</title>
+</head>
+
+<body>
+  <h1>Oferta Pacientes</h1>
+
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Operadora</th>
+        <th>Idade</th>
+        <th>Diagnóstico</th>
+        <th>Dados</th>
+      </tr>
+    </thead>
+    <tbody id="data-body"></tbody>
+  </table>
+  <div id="formulario-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <!--<script src="user.js"></script>-->
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
+      authDomain: "meta-sau.firebaseapp.com",
+      projectId: "meta-sau",
+      storageBucket: "meta-sau.appspot.com",
+      messagingSenderId: "635471066942",
+      appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+    const tableBody = document.getElementById('data-body');
+    const formularioContainer = document.getElementById('formulario-container');
+
+    // Autenticar o usuário e obter suas informações de login
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const usuarioLogin = user.email; // Assumindo que o campo de login do usuário é o e-mail
+        buscarOperadora(usuarioLogin);
+      } else {
+        // Usuário não autenticado, faça o tratamento adequado
+        console.log("Usuário não autenticado");
+      }
+    });
+
+    function buscarOperadora(login) {
+      // Consultar a coleção 'hospitais' usando o login do usuário
+      db.collection('hospitais').where('login', '==', login).get().then((querySnapshot) => {
+        if (querySnapshot.empty) {
+          // Não foi encontrado nenhum documento correspondente ao login do usuário
+          console.log("Usuário não encontrado na coleção 'hospitais'");
+          return;
+        }
+
+        const doc = querySnapshot.docs[0];
+        const data = doc.data();
+        const operadora = data.operadora;
+
+        // Agora você pode usar a operadora encontrada como necessário
+        console.log("Operadora do usuário:", operadora);
+
+
+        db.collection('pacientes').get().then((querySnapshot) => {
+          tableBody.innerHTML = '';
+
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = document.createElement('tr');
+
+            const nameCell = document.createElement('td');
+            const operadora = document.createElement('td');
+            const idadeCell = document.createElement('td');
+            const diagCell = document.createElement('td');
+            const linkCell = document.createElement('td');
+            const link = document.createElement('a');
+            link.href = "dados.html?id=" + doc.id;
+            link.innerHTML = "...";
+
+            // Usar o e-mail do paciente para identificar a operadora na tabela de usuários
+            // const usuario = usuarios.find((usuarios) => usuarios.login === data.email);
+            /* const usuario = usuarios.find((user) => user.login === data.email);
+             if (usuario) {
+               operadora.textContent = usuario.operadora;
+             };*/
+            nameCell.textContent = data.name;
+            operadora.textContent = data.operadora; // Define o conteúdo da operadora
+            idadeCell.textContent = data.aniv;
+            diagCell.textContent = data.diag;
+
+
+            row.appendChild(nameCell);
+            row.appendChild(operadora);
+            row.appendChild(idadeCell);
+            row.appendChild(diagCell);
+            row.appendChild(linkCell).appendChild(link);
+
+            tableBody.appendChild(row);
+            // Adicionar evento de clique ao link para exibir o formulário com os dados
+            link.addEventListener('click', () => {
+              exibirFormulario(data);
+            });
+
+            // Função para exibir o formulário com os dados do paciente
+            function exibirFormulario(pacienteId) {
+              // Redirecionar para a página do formulário com o ID do paciente como parâmetro
+              window.location.href = `dados.html?id=${pacienteId}`;
+            }
+          });
+        }).catch((error) => {
+          console.log("Erro ao obter os dados do Cloud Firestore:", error);
+        });
+      });
+    }
+  </script>
+</body>
+
+
+
+</html>

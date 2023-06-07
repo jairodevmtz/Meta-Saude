@@ -1,0 +1,145 @@
+body {
+    background: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/*Nome do logo a esquerda */
+.brand {
+    float: left;
+}
+
+/* Add o black no background color na top navigation */
+.topnav {
+    background-color: transparent;
+    overflow: hidden;
+    border-bottom: 1px solid #0a0a0a;
+    background-color: rgb(10, 241, 10);
+}
+
+/* Estilo dos links dentro da barra de navegação */
+.topnav a {
+    float: right;
+    display: block;
+    color: #0c0c0c;
+    text-align: center;
+    padding: 24px 35px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Alterar a cor dos links ao passar o mouse */
+.topnav a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Adicionar uma turma ativa para destacar a página atual */
+.topnav a.active {
+    background-color: transparent;
+    color: rgb(12, 12, 12);
+}
+
+.topnav a.active:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Ocultar o link que deve abrir e fechar o topnav em telas pequenas */
+.topnav .icon {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    /* Apenas para centralizar o form na página */
+    margin: 25px;
+    height: 500px;
+    width: 95%;
+    /* Para ver as bordas do formulário */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+form div+div {
+    margin-top: 1em;
+}
+
+label {
+
+    /*labels do mesmo tamanho e alinhadas */
+    display: inline-flex;
+    width: 180px;
+    text-align: right;
+}
+
+#nomepac,
+textarea {
+    /* Todos os campos de texto têm as mesmas configurações de fonte */
+    font: 1em sans-serif;
+    align-items: center;
+    /*Todos os campo de texto possuem o mesmo tamanho */
+    width: 175px;
+    height: 25px;
+    padding-left: 20px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+}
+
+#end,
+textarea {
+    /* Todos os campos de texto têm as mesmas configurações de fonte */
+    font: 1em sans-serif;
+    align-items: center;
+    /*Todos os campo de texto possuem o mesmo tamanho */
+    width: 175px;
+    height: 25px;
+    padding-left: 10px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+}
+
+#diag,
+textarea {
+    /* Todos os campos de texto têm as mesmas configurações de fonte */
+    font: 1em sans-serif;
+    align-items: center;
+    /*Todos os campo de texto possuem o mesmo tamanho */
+    width: 175px;
+    height: 25px;
+    padding-left: 0px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+}
+
+p:focus,
+textarea:focus {
+    border-color: #000;
+}
+
+textarea {
+    /*Alinhar corretamente os campos de texto de várias linhas com sua label*/
+    vertical-align: top;
+
+    /* Para dar espaço suficiente para digitar algum texto */
+    height: 5em;
+
+    /* Para permitir aos usuários redimensionarem qualquer textarea verticalmente.*/
+    resize: vertical;
+}
+
+.button {
+    /* Para posicionar os botões para a mesma posição dos campos de texto */
+    padding-left: 96px;
+    /* mesmo tamanho que os elementos do tipo label */
+}
+
+button {
+    margin-left: .5em;
+}
