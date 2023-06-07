@@ -17,6 +17,13 @@
             <!--<a class="navbar-brand" href="#">Meta Saúde</a>-->
             <a class="navbar-brand" href="principal.html">
                 <img src="img/farmacia.png" alt="Bootstrap" width="55" height="40">Meta Saúde
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <span id="welcomeMessage"></span>
+                        </li>
+                    </ul>
+                </div>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -72,8 +79,12 @@
 
 
     <script>
-        const userEmail = localStorage.getItem('userEmail');
+        const userName = localStorage.getItem('currentUser');
 
+        if (userName) {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.textContent = 'Olá operadora ' + userName;
+        }
         // Função de logout
         function logout() {
             // Aqui você pode adicionar o código para efetuar o logout do usuário

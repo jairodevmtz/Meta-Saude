@@ -24,7 +24,7 @@
     <label for="terms"></label>
     <span>Lembre de mim</span><br><br>
     <div class="form-group">
-      <button onclick="login()">Login</button> 
+      <button onclick="login()">Login</button>
     </div>
     <a href="recusenha.html" id="recsenha">Esqueceu sua Senha?</a>
   </div>
@@ -63,14 +63,21 @@
           usuariosRef.where("login", "==", userEmail).get()
             .then((querySnapshot) => {
               if (!querySnapshot.empty) {
+                const userData = querySnapshot.docs[0].data();
+                const userName = userData.nome; // Obtém o nome do usuário
+
                 localStorage.setItem('currentUser', userEmail);
+                localStorage.setItem('currentUser', userName); // Armazena o nome do usuário no localStorage
                 window.location.href = "principal.html";
               } else {
                 hospitaisRef.where("login", "==", userEmail).get()
                   .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
-                      []
+                      const userData = querySnapshot.docs[0].data();
+                      const userName = userData.nome; // Obtém o nome do usuário
+
                       localStorage.setItem('currentUser', userEmail);
+                      localStorage.setItem('currentUser', userName); // Armazena o nome do usuário no localStorage
                       window.location.href = "hospital.html";
                     } else {
                       console.error("Usuário não encontrado");

@@ -19,7 +19,7 @@
         <th>Operadora</th>
         <th>Idade</th>
         <th>Diagnóstico</th>
-        <th>Dados</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="data-body"></tbody>
@@ -90,7 +90,7 @@
             const linkCell = document.createElement('td');
             const link = document.createElement('a');
             link.href = "dados.html?id=" + doc.id;
-            link.innerHTML = "...";
+            link.innerHTML = "Confirmar";
 
             // Usar o e-mail do paciente para identificar a operadora na tabela de usuários
             // const usuario = usuarios.find((usuarios) => usuarios.login === data.email);
