@@ -77,11 +77,11 @@
     </div>
 
     <script>
-        const userName = localStorage.getItem('currentUser');
+        const userName = localStorage.getItem('currentUserHospital');
 
         if (userName) {
             const welcomeMessage = document.getElementById('welcomeMessage');
-            welcomeMessage.textContent = 'Olá hospital ' + userName;
+            welcomeMessage.textContent = 'Olá Hospital ' + userName;
         }
 
         // Função de logout

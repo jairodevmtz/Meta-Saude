@@ -36,12 +36,12 @@
     const firebaseConfig = {
       apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
       authDomain: "meta-sau.firebaseapp.com",
+      databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
       projectId: "meta-sau",
       storageBucket: "meta-sau.appspot.com",
       messagingSenderId: "635471066942",
       appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
     };
-
     firebase.initializeApp(firebaseConfig);
 
     const db = firebase.firestore();
@@ -91,6 +91,7 @@
             const link = document.createElement('a');
             link.href = "dados.html?id=" + doc.id;
             link.innerHTML = "Confirmar";
+            
 
             // Usar o e-mail do paciente para identificar a operadora na tabela de usuários
             // const usuario = usuarios.find((usuarios) => usuarios.login === data.email);

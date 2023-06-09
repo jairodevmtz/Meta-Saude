@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="index.css">
-  <title>Teste</title>
+  <title>Tela do Login</title>
 </head>
 
 <body>
@@ -39,11 +39,13 @@
     const firebaseConfig = {
       apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
       authDomain: "meta-sau.firebaseapp.com",
+      databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
       projectId: "meta-sau",
       storageBucket: "meta-sau.appspot.com",
       messagingSenderId: "635471066942",
       appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
     };
+
 
     firebase.initializeApp(firebaseConfig);
 
@@ -64,20 +66,22 @@
             .then((querySnapshot) => {
               if (!querySnapshot.empty) {
                 const userData = querySnapshot.docs[0].data();
-                const userName = userData.nome; // Obtém o nome do usuário
+                const userName = userData.operadora; // Obtém o nome do usuário
+
 
                 localStorage.setItem('currentUser', userEmail);
-                localStorage.setItem('currentUser', userName); // Armazena o nome do usuário no localStorage
+                localStorage.setItem('currentUserOperadora', userName); // Armazena o nome do usuário no localStorage
                 window.location.href = "principal.html";
               } else {
                 hospitaisRef.where("login", "==", userEmail).get()
                   .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
                       const userData = querySnapshot.docs[0].data();
-                      const userName = userData.nome; // Obtém o nome do usuário
+                      const userName = userData.hospital; // Obtém o nome do usuário
+
 
                       localStorage.setItem('currentUser', userEmail);
-                      localStorage.setItem('currentUser', userName); // Armazena o nome do usuário no localStorage
+                      localStorage.setItem('currentUserHospital', userName); // Armazena o nome do usuário no localStorage
                       window.location.href = "hospital.html";
                     } else {
                       console.error("Usuário não encontrado");

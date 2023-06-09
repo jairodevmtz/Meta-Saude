@@ -1,6 +1,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
   authDomain: "meta-sau.firebaseapp.com",
+  databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
   projectId: "meta-sau",
   storageBucket: "meta-sau.appspot.com",
   messagingSenderId: "635471066942",

@@ -101,10 +101,10 @@
 
 
         <script>
-
             const firebaseConfig = {
                 apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
                 authDomain: "meta-sau.firebaseapp.com",
+                databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
                 projectId: "meta-sau",
                 storageBucket: "meta-sau.appspot.com",
                 messagingSenderId: "635471066942",
@@ -212,7 +212,7 @@
                             }, 3000); // 5000 milissegundos = 5 segundos
                         } else {
                             console.error("Usuário não encontrado nas coleções 'usuarios' e 'hospitais'.");
-                        }
+                        } 
                     }
                 } catch (error) {
                     console.error('Erro ao buscar usuário:', error);
