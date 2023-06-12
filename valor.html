@@ -57,7 +57,7 @@
             </div>
 
             <div>
-                <a href="valor.html?id=${pacienteId}" id="oferta-link">
+                <a href="valor.html?id=${pacienteId}" + pacienteId id="oferta-link">
                     <button id="btval" type="submit">Enviar
                         Oferta
                     </button>
@@ -76,7 +76,8 @@
 
 
         <script>
-            const form = document.getElementById('oferta-form');
+            
+        /*    const form = document.getElementById('oferta-form');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const link = document.querySelector('#data-body a[href="dados.html?id=' + pacienteId + '"]');
@@ -84,7 +85,7 @@
                     link.textContent = "Oferta já feita";
                     link.classList.add("oferta-feita");
                 }
-            });
+            });*/
             function formatarValor(input) {
                 // Remove todos os caracteres não numéricos do valor
                 const valorNumerico = input.value.replace(/\D/g, '');

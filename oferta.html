@@ -89,9 +89,9 @@
             const diagCell = document.createElement('td');
             const linkCell = document.createElement('td');
             const link = document.createElement('a');
-            link.href = "dados.html?id=" + doc.id;
-            link.innerHTML = "Confirmar";
-            
+            link.href = `dados.html?id=${doc.id}`;
+            link.textContent = "Confirmar";
+            link.id = 'confirm-link';
 
             // Usar o e-mail do paciente para identificar a operadora na tabela de usuários
             // const usuario = usuarios.find((usuarios) => usuarios.login === data.email);
