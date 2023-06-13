@@ -88,10 +88,11 @@
             const idadeCell = document.createElement('td');
             const diagCell = document.createElement('td');
             const linkCell = document.createElement('td');
+            // Criação do link "Confirmar" com o valor do campo "oper"
             const link = document.createElement('a');
             link.href = `dados.html?id=${doc.id}`;
-            link.textContent = "Confirmar";
-            link.id = 'confirm-link';
+            link.textContent = data && data.oper === 0 ? "Confirmar" : "Oferta já Feita";
+            link.id = 'confirm-link-' + doc.id;
 
             // Usar o e-mail do paciente para identificar a operadora na tabela de usuários
             // const usuario = usuarios.find((usuarios) => usuarios.login === data.email);
@@ -122,6 +123,14 @@
               // Redirecionar para a página do formulário com o ID do paciente como parâmetro
               window.location.href = `dados.html?id=${pacienteId}`;
             }
+            /* const botoesOferta = document.querySelectorAll('#botao');
+             botoesOferta.forEach((botao) => {
+               botao.addEventListener('click', () => {
+                 const linkConfirmar = document.getElementById('confirm-link');
+                 linkConfirmar.textContent = 'Oferta já Feita';
+                 linkConfirmar.disabled = true;
+               });
+             });*/
           });
         }).catch((error) => {
           console.log("Erro ao obter os dados do Cloud Firestore:", error);

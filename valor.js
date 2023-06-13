@@ -17,7 +17,7 @@ const ofertaForm = document.getElementById('oferta-form');
 // Obter o ID do paciente da URL
 const urlParams = new URLSearchParams(window.location.search);
 const pacienteId = urlParams.get('id');
-
+const confirmLink = document.getElementById('confirm-link');
 if (!pacienteId) {
     console.log("ID do paciente não fornecido na URL");
 } else {
@@ -71,11 +71,20 @@ function exibirConfirmacao(ofertaData) {
     const confirmacaoText = document.createElement('h5');
     confirmacaoText.textContent = 'Confirmando a oferta, a operadora receberá a notificação para aprovação ou não.';
 
+
     const btnSim = document.createElement('button');
     btnSim.textContent = 'Sim';
     btnSim.type = 'button';
     btnSim.id = 'botao';
     btnSim.addEventListener('click', () => {
+
+        /*  const confirmLink = parent.document.getElementById('botao');
+          if (confirmLink) {
+              confirmLink.textContent = 'Oferta já Feita';
+              confirmLink.classList.add('oferta-feita');
+              confirmLink.removeAttribute('href');
+              confirmLink.href = `oferta.html?id=${pacienteId}`; // Replace with the new link URL
+          }*/
         salvarOferta(ofertaData);
     });
 
@@ -94,9 +103,9 @@ function exibirConfirmacao(ofertaData) {
     document.body.appendChild(confirmacaoForm);
 }
 
-const confirmLink = document.getElementById('btval');
-if (confirmLink == null) {
-    alert('ta nulo');    
+//const confirmLink = document.getElementById('btval');
+/*if (confirmLink == null) {
+    alert('ta nulo');
 }
 confirmLink.addEventListener('click', (event) => {
     alert('Link clicado!');
@@ -105,7 +114,19 @@ confirmLink.addEventListener('click', (event) => {
     // Atualize o link para "Oferta já feita"
     confirmLink.textContent = 'Oferta já feita';
     confirmLink.href = '#'; // Remova o link para impedir que o usuário clique novamente
-});
+});*/
+
+/*const confirmLink = document.getElementById('confirm-link');
+if (confirmLink) {
+    confirmLink.href = `oferta.html?id=${pacienteId}`;
+    confirmLink.addEventListener('click', (event) => {
+        event.preventDefault(); // Impede o comportamento padrão do link
+
+        // Atualize o link para "Oferta já feita"
+        confirmLink.textContent = 'Oferta já feita';
+        confirmLink.classList.add("oferta-feita");
+    });
+}*/
 
 function salvarOferta(ofertaData) {
     db.collection('pacientes').doc(ofertaData.pacienteId).get()
@@ -114,19 +135,28 @@ function salvarOferta(ofertaData) {
                 const pacienteData = doc.data();
                 const ofertaCompleta = {
                     ...ofertaData,
-                    pacientes: pacienteData
+                    pacientes: pacienteData,
+                    opers: 1 // Atualiza o valor de "oper" para 1
                 };
 
                 db.collection('ofertas').add(ofertaCompleta)
                     .then(() => {
-                        const felipet = document.getElementById('btval');
-                        felipet.textContent = 'Felipet'
+                        // const felipet = document.getElementById('btval');
+                        //   felipet.textContent = 'Felipet'
 
                         alert('Oferta enviada com sucesso!');
-                        const confirmLink = document.getElementById('confirm-link');
-                        confirmLink.textContent = 'Oferta já feita';
-                        confirmLink.href = '#'; // Remova o link para impedir que o usuário clique novamente
+
+                        const confirmLink = parent.document.getElementById('confirm-link-' + ofertaData.pacienteId);
+                        if (confirmLink && pacienteData.opers === 1) {
+                            confirmLink.textContent = 'Oferta já Feita';
+                            confirmLink.classList.add('oferta-feita');
+                            confirmLink.removeAttribute('href');
+                            confirmLink.disabled = true;
+                        }
+                        // confirmLink.textContent = 'Oferta já feita';
+                        // confirmLink.href = '#'; // Remova o link para impedir que o usuário clique novamente
                         window.location.href = 'hospital.html'; // Redireciona para a página principal após o envio
+
                     })
                     .catch((error) => {
                         console.log('Erro ao salvar a oferta:', error);
@@ -140,3 +170,12 @@ function salvarOferta(ofertaData) {
         });
 }
 
+/*const confirmLink = document.getElementById('confirm-link');
+                        confirmLink.addEventListener('click', (event) => {
+                            alert('Link clicado!');
+                            event.preventDefault(); // Impede o comportamento padrão do link
+
+                            // Atualize o link para "Oferta já feita"
+                            confirmLink.textContent = 'Oferta já feita';
+                            confirmLink.href = '#'; // Remova o link para impedir que o usuário clique novamente
+                        });*/

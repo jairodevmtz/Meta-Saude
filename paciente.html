@@ -134,6 +134,7 @@
                 const diag = form.diag.value;
                 const text = form.text.value;
 
+
                 // Obtendo o usuário logado atualmente
                 const currentUser = localStorage.getItem('currentUser');
 
@@ -154,14 +155,19 @@
                             end: end,
                             cep: cep,
                             diag: diag,
-                            text: text
+                            text: text,
+
                         };
 
                         // Obtendo a referência para a coleção "pacientes"
                         const pacientesRef = db.collection('pacientes');
 
                         // Adicionando o paciente à coleção "pacientes"
-                        await pacientesRef.add(pacienteData);
+                        const newPacienteRef = await pacientesRef.add(pacienteData);
+                        const newPacienteId = newPacienteRef.id;
+
+                        // Atualizando o campo "oper" com o valor "0" no documento do paciente
+                        await newPacienteRef.update({ oper: 0 });
 
                         console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
                         form.reset(); // Limpando o formulário após o envio
@@ -212,7 +218,7 @@
                             }, 3000); // 5000 milissegundos = 5 segundos
                         } else {
                             console.error("Usuário não encontrado nas coleções 'usuarios' e 'hospitais'.");
-                        } 
+                        }
                     }
                 } catch (error) {
                     console.error('Erro ao buscar usuário:', error);
