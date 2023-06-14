@@ -23,9 +23,6 @@ thead {
   background-color: #f2f2f2;
 }
 
-.disabled {
-  color: gray;
-  /* Define a cor do texto como cinza */
+a.disabled {
   pointer-events: none;
-  /* Desabilita os eventos de clique no link */
 }

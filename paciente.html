@@ -167,8 +167,11 @@
                         const newPacienteId = newPacienteRef.id;
 
                         // Atualizando o campo "oper" com o valor "0" no documento do paciente
-                        await newPacienteRef.update({ oper: 0 });
-
+                       // await newPacienteRef.update({ oper: 1 });
+                        // Atualizando o campo "oper" com o valor "0" no documento do paciente
+                        const operValue = Date.now();
+                        await newPacienteRef.update({ oper: operValue });
+                        
                         console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
                         form.reset(); // Limpando o formulário após o envio
 
@@ -179,7 +182,7 @@
                         // Redirecionando para a página principal após 5 segundos
                         setTimeout(() => {
                             window.location.href = 'principal.html';
-                        }, 5000); // 5000 milissegundos = 5 segundos
+                        }, 3000); // 5000 milissegundos = 3 segundos
                     } else {
                         // Se o usuário não existe na coleção "usuarios", verificar na coleção "hospitais"
                         const hospitaisSnapshot = await db.collection('hospitais').where('login', '==', currentUser).get();

@@ -15,7 +15,8 @@ const formularioContainer = document.getElementById('formulario-container');
 
 // Obtenha o ID do paciente da URL
 const urlParams = new URLSearchParams(window.location.search);
-const pacienteId = urlParams.get('id');
+const pacienteId = urlParams.get('id') || (new URLSearchParams(window.location.search.slice(1))).get('id');
+//const pacienteId = urlParams.get('id');
 
 if (pacienteId) {
   // Se o ID do paciente estiver presente na URL, obtenha os dados do paciente e exiba o formulário
