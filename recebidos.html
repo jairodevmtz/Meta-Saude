@@ -98,8 +98,13 @@
                 const diagCell = document.createElement('td');
                 const linkCell = document.createElement('td');
                 const link = document.createElement('a');
-                link.href = "confirmacao.html?id=" + doc.id;
+                const linkId = 'confirm-link-' + doc.id; // ID único para cada link
+                //link.href = `confirmacao.html?id=${doc.id}`;
+                link.href = `confirmacao.html?id=${doc.id}&pacienteId=${pacienteId}`;
                 link.textContent = "Confirmar";
+
+                link.id = linkId;
+
 
                 nameCell.textContent = pacienteData.name;
                 hospitalCell.textContent = hospital; // Define o conteúdo do hospital na célula
@@ -115,6 +120,27 @@
                 row.appendChild(linkCell).appendChild(link);
 
                 tableBody.appendChild(row);
+
+                // Verifica se o valor de 'opers' é igual a 1 para o paciente
+                const ofertasRef = db.collection("recebidos");
+                // Use a função get() para recuperar os dados da coleção "ofertas"
+                ofertasRef.where("ofertaId", "==", doc.id).get().then(function (querySnapshot) {
+                  querySnapshot.forEach(function (doc) {
+                    // Verifique o valor do campo "opers"
+                    const data = doc.data();
+                    if (data && data.oper === 2) {
+                      // Verifique se o ID do link corresponde ao paciente atual
+                      if (linkId === link.id) {
+                        // Atualize o texto do link para "Oferta já Feita"
+                       // link.textContent = "Oferta já Feita";
+                        link.setAttribute("class", "disabled");
+                        link.setAttribute("style", "color: black;");
+                        link.innerHTML = "Oferta Recebida";
+                      }
+                    }
+                  });
+                });
+
 
                 // Adicionar evento de clique ao link para exibir o formulário com os dados
                 link.addEventListener('click', () => {

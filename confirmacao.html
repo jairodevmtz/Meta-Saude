@@ -25,13 +25,12 @@
   </header>
 
   <h1>Oferta Confirmada</h1>
-  <form>
+  <form id="ofertaForm">
     <h1>Confirmando a oferta</h1>
-
     <div class="button">
       <button id="btn-sim" type="button">Sim</button>
-
     </div>
+  </form>
 
   </form>
 
@@ -57,18 +56,22 @@
     const db = firebase.firestore();
 
     const btnSim = document.getElementById('btn-sim');
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const pacienteId = urlParams.get('pacienteId');
 
     btnSim.addEventListener('click', () => {
       const urlParams = new URLSearchParams(window.location.search);
+      const ofertaId = urlParams.get('id'); // Obter o ID da oferta da URL
+      const pacienteId = urlParams.get('pacienteId'); // Obter o ID do paciente da URL
       const nome = urlParams.get('nome');
       const email = urlParams.get('email');
       const telefone = urlParams.get('telefone');
       const valor = urlParams.get('valor');
       const periodo = urlParams.get('periodo');
       const obs = urlParams.get('obs');
+      const oper = urlParams.get('oper');
 
-      enviarOferta(nome, email, telefone, valor, periodo, obs)
+      enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper)
         .then(() => {
           alert('Oferta enviada com sucesso!');
           window.location.href = 'principal.html';
@@ -76,22 +79,26 @@
         .catch((error) => {
           console.error('Erro ao enviar oferta:', error);
         });
-
     });
 
+    function enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper) {
+      if (!ofertaId) {
+        console.log("ID do paciente não fornecido na URL");
+        return Promise.reject(new Error("ID do paciente não fornecido na URL"));
+      } else {
+        const recebidoData = {
+          ofertaId: ofertaId,
+          nome: nome,
+          email: email,
+          telefone: telefone,
+          valor: valor,
+          periodo: periodo,
+          obs: obs,
+          oper: 2,
+        };
 
-
-    function enviarOferta(nome, email, telefone, valor, periodo, obs) {
-      const recebidoData = {
-        nome: nome,
-        email: email,
-        telefone: telefone,
-        valor: valor,
-        periodo: periodo,
-        obs: obs,
-      };
-
-      return db.collection('recebidos').add(recebidoData);
+        return db.collection('recebidos').add(recebidoData);
+      }
     }
   </script>
 

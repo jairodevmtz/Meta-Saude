@@ -169,8 +169,8 @@
                         // Atualizando o campo "oper" com o valor "0" no documento do paciente
                        // await newPacienteRef.update({ oper: 1 });
                         // Atualizando o campo "oper" com o valor "0" no documento do paciente
-                        const operValue = Date.now();
-                        await newPacienteRef.update({ oper: operValue });
+                       /* const operValue = Date.now();
+                        await newPacienteRef.update({ oper: operValue });*/
                         
                         console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
                         form.reset(); // Limpando o formulário após o envio

@@ -75,20 +75,21 @@ function exibirConfirmacao(ofertaData) {
     const btnSim = document.createElement('button');
     btnSim.textContent = 'Sim';
     btnSim.type = 'button';
+    const btnSimId = 'botao-' + ofertaData.pacienteId; // Unique ID for the button
     btnSim.id = 'botao';
     btnSim.addEventListener('click', () => {
 
-       /* if (confirmLink) {
-            const ofertaRef = db.collection('ofertas').doc(pacienteId);
-            ofertaRef.get().then((ofertaDoc) => {
-                if (ofertaDoc.exists && ofertaDoc.data().opers === 1) {
-                    confirmLink.textContent = "Oferta já Feita";
-                    confirmLink.classList.add("oferta-feita");
-                    confirmLink.disabled = true;
-                    confirmLink.href = ''; // Remova o link para impedir que o usuário clique novamente
-                }
-            });
-        }*/
+        /* if (confirmLink) {
+             const ofertaRef = db.collection('ofertas').doc(pacienteId);
+             ofertaRef.get().then((ofertaDoc) => {
+                 if (ofertaDoc.exists && ofertaDoc.data().opers === 1) {
+                     confirmLink.textContent = "Oferta já Feita";
+                     confirmLink.classList.add("oferta-feita");
+                     confirmLink.disabled = true;
+                     confirmLink.href = ''; // Remova o link para impedir que o usuário clique novamente
+                 }
+             });
+         }*/
 
 
         /*  const confirmLink = parent.document.getElementById('botao');
@@ -151,7 +152,7 @@ function salvarOferta(ofertaData) {
                 const ofertaCompleta = {
                     ...ofertaData,
                     pacientes: pacienteData,
-                   // opers: 1 // Atualiza o valor de "oper" para 1
+                    opers: 1 // Atualiza o valor de "oper" para 1
                 };
 
                 db.collection('ofertas').add(ofertaCompleta)
@@ -161,6 +162,7 @@ function salvarOferta(ofertaData) {
 
                         alert('Oferta enviada com sucesso!');
 
+
                         /*// Verifica se a oferta já foi feita e atualiza o link "Confirmar"
                         const ofertaRef = db.collection('ofertas').doc(ofertaData.pacienteId);
                         ofertaRef.get().then((ofertaDoc) => {
@@ -169,7 +171,7 @@ function salvarOferta(ofertaData) {
                                 confirmLink.classList.add("oferta-feita");
                                 confirmLink.disabled = true;
                             }
-                        });*/   
+                        });*/
                         // confirmLink.textContent = 'Oferta já feita';
                         // confirmLink.href = '#'; // Remova o link para impedir que o usuário clique novamente
                         window.location.href = 'hospital.html'; // Redireciona para a página principal após o envio
