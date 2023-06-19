@@ -42,6 +42,8 @@ function exibirFormulario(data) {
     <div>
       <label for="nome">Nome:</label>
       <input type="text" value="${data.name}" disabled>
+      <label for="sexo">Sexo:</label>
+      <input type="text" value="${data.sexo}" disabled>
     </div>
 
     <div>
@@ -57,13 +59,25 @@ function exibirFormulario(data) {
     </div>
 
     <div>
+      <label for="numero carteira">No. Carteira:</label>
+      <input type="text" value="${data.carteira}" disabled>
+    </div>
+    
+    <div>
+      <label for="nome da mae">Mãe:</label>
+      <input type="text" value="${data.mae}" disabled>
+    </div>
+
+    <div>
       <label for="endereco">Endereço:</label>
       <input type="text" value="${data.end}" disabled>
     </div>
 
     <div>
-      <label for="city">Cidade/UF:</label>
+      <label for="city">Cidade:</label>
       <input type="text" value="${data.cep}" disabled>
+      <label name="uf" id="uf">UF:</label>
+      <input type="text" value="${data.uf}" disabled>
     </div>
 
     <div>

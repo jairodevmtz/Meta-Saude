@@ -45,14 +45,32 @@
             <div>
                 <label for="nome">Nome:</label>
                 <input id="name" placeholder="Nome" type="text" required>
+
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+
             </div>
 
             <div>
                 <label for="cpf">CPF:</label>
                 <input placeholder="Digite o CPF do Paciente" id="cpf" type="text" required>
                 <label for="data">Data Nasc:</label>
-                <input id="aniv" placeholder="Digite sua Idade" type="date" required>
+                <input id="aniv" placeholder="Digite sua Idade" pattern="\d{2}\/\d{2}\/\d{4}" type="date" required>
 
+            </div>
+
+            <div>
+                <label for="numero carteira">No. Carteira:</label>
+                <input id="carteira" placeholder="Digite o Número da Carteira" type="text" required>
+            </div>
+
+            <div>
+                <label for="nome da mae">Mãe:</label>
+                <input id="mae" placeholder="Digite o Nome da Mãe" type="text" required>
             </div>
 
             <div>
@@ -61,8 +79,39 @@
             </div>
 
             <div>
-                <label for="city">Cidade/UF:</label>
-                <input id="cep" placeholder="Digite a Cidade/UF" type="text" required>
+                <label for="city">Cidade:</label>
+                <input id="cep" placeholder="Digite sua Cidade" type="text" required>
+
+                <select name="uf" id="uf">
+                    <option value=""> UF </option>
+                    <option value="AC"> AC </option>
+                    <option value="AL"> AL </option>
+                    <option value="AM"> AM </opção>
+                    <option value="AP"> AP </opção>
+                    <option value="BA"> BA </option>
+                    <option value="CE"> CE </option>
+                    <option value="DF"> DF </option>
+                    <option value="ES"> ES </option>
+                    <option value="GO"> GO </option>
+                    <option value="MA"> MA </option>
+                    <option value="MG"> MG</option>
+                    <option value="MS"> MS </option>
+                    <option value="MT"> MT </option>
+                    <option value="PA"> PA </option>
+                    <option value="PB"> PB </option>
+                    <option value="PE"> PE </option>
+                    <option value="PI">PI </opção>
+                    <option value="PR"> PR </opção>
+                    <option value="RJ"> RJ </option>
+                    <option value="RN"> RN </option>
+                    <option value="RS"> RS </option>
+                    <option value="RO"> RO </opção>
+                    <option value="RR"> RR </opção>
+                    <option value="SC"> SC </option>
+                    <option value="SE"> SE </option>
+                    <option value="SP"> SP </option>
+                    <option value="TO"> TO </option>
+                </select>
             </div>
 
             <div>
@@ -74,6 +123,7 @@
                 <label for="comp">Complemento:</label>
                 <textarea id="text"></textarea>
             </div>
+
             <div class="button">
                 <button id="botao" type="submit" value="Gravar">Gravar</button>
             </div>
@@ -96,6 +146,7 @@
         <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <script src="https://unpkg.com/imask"></script>
         <!--<script src="user.js"></script>-->
 
 
@@ -127,10 +178,22 @@
 
                 // Obtendo os dados do formulário
                 const name = form.name.value;
+                const sexo = form.sexo.value;
                 const cpf = form.cpf.value;
-                const aniv = form.aniv.value;
+                //const aniv = form.aniv.value;
+                const aniv = formatDate(form.aniv.value);
+                function formatDate(dateString) {
+                    const dateParts = dateString.split('-');
+                    const day = dateParts[2];
+                    const month = dateParts[1];
+                    const year = dateParts[0];
+                    return `${day}/${month}/${year}`;
+                }
+                const carteira = form.carteira.value;
+                const mae = form.mae.value;
                 const end = form.end.value;
                 const cep = form.cep.value;
+                const uf = form.uf.value;
                 const diag = form.diag.value;
                 const text = form.text.value;
 
@@ -149,11 +212,15 @@
                         // Salvando os dados do paciente na coleção "pacientes"
                         const pacienteData = {
                             name: name,
+                            sexo: sexo, // Inclua o valor do campo de sexo nos dados do paciente
                             cpf: cpf,
                             aniv: aniv,
+                            carteira: carteira,
+                            mae: mae,
                             operadora: operadora,
                             end: end,
                             cep: cep,
+                            uf: uf,
                             diag: diag,
                             text: text,
 
@@ -167,11 +234,11 @@
                         const newPacienteId = newPacienteRef.id;
 
                         // Atualizando o campo "oper" com o valor "0" no documento do paciente
-                       // await newPacienteRef.update({ oper: 1 });
+                        // await newPacienteRef.update({ oper: 1 });
                         // Atualizando o campo "oper" com o valor "0" no documento do paciente
-                       /* const operValue = Date.now();
-                        await newPacienteRef.update({ oper: operValue });*/
-                        
+                        /* const operValue = Date.now();
+                         await newPacienteRef.update({ oper: operValue });*/
+
                         console.log('Dados do paciente salvos com sucesso na coleção "pacientes".');
                         form.reset(); // Limpando o formulário após o envio
 
@@ -194,11 +261,14 @@
                             // Salvando os dados do paciente na coleção "pacientes"
                             const pacienteData = {
                                 name: name,
+                                sexo: sexo, // Inclua o valor do campo de sexo nos dados do paciente
                                 cpf: cpf,
                                 aniv: aniv,
+                                mae: mae,
                                 operadora: operadora,
                                 end: end,
                                 cep: cep,
+                                uf: uf,
                                 diag: diag,
                                 text: text
                             };
@@ -226,6 +296,13 @@
                 } catch (error) {
                     console.error('Erro ao buscar usuário:', error);
                 }
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var cpfInput = document.getElementById('cpf');
+                var cpfMask = IMask(cpfInput, {
+                    mask: '000.000.000-00'
+                });
             });
         </script>
 

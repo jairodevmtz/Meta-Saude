@@ -17,7 +17,8 @@
       <tr>
         <th>Paciente</th>
         <th>Operadora</th>
-        <th>Idade</th>
+        <th>Data Nasc</th>
+        <th>No. Carteira</th>
         <th>Diagnóstico</th>
         <th></th>
       </tr>
@@ -86,6 +87,7 @@
             const nameCell = document.createElement('td');
             const operadora = document.createElement('td');
             const idadeCell = document.createElement('td');
+            const carteiraCell = document.createElement('td');
             const diagCell = document.createElement('td');
             const linkCell = document.createElement('td');
             // Criação do link "Confirmar" com o valor do campo "oper"
@@ -105,12 +107,14 @@
             nameCell.textContent = data.name;
             operadora.textContent = data.operadora; // Define o conteúdo da operadora
             idadeCell.textContent = data.aniv;
+            carteiraCell.textContent = data.carteira;
             diagCell.textContent = data.diag;
 
 
             row.appendChild(nameCell);
             row.appendChild(operadora);
             row.appendChild(idadeCell);
+            row.appendChild(carteiraCell);
             row.appendChild(diagCell);
             row.appendChild(linkCell).appendChild(link);
 
@@ -118,10 +122,10 @@
 
             // Verifica se o valor de "opers" é igual a 1 para o paciente
             // Verifica se o valor de 'opers' é igual a 1 para o paciente
-            
+
             const ofertasRef = db.collection("ofertas");
             // Use a função get() para recuperar os dados da coleção "ofertas"
-            ofertasRef.where("pacienteId", "==", doc.id).get().then(function(querySnapshot) {
+            ofertasRef.where("pacienteId", "==", doc.id).get().then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
                 // Verifique o valor do campo "opers"
                 const data = doc.data();

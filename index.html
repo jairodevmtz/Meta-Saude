@@ -50,7 +50,6 @@
     firebase.initializeApp(firebaseConfig);
 
     function login() {
-
       const email = document.getElementById("email-login").value;
       const password = document.getElementById("password-login").value;
 
@@ -68,7 +67,6 @@
                 const userData = querySnapshot.docs[0].data();
                 const userName = userData.operadora; // Obtém o nome do usuário
 
-
                 localStorage.setItem('currentUser', userEmail);
                 localStorage.setItem('currentUserOperadora', userName); // Armazena o nome do usuário no localStorage
                 window.location.href = "principal.html";
@@ -79,26 +77,29 @@
                       const userData = querySnapshot.docs[0].data();
                       const userName = userData.hospital; // Obtém o nome do usuário
 
-
                       localStorage.setItem('currentUser', userEmail);
                       localStorage.setItem('currentUserHospital', userName); // Armazena o nome do usuário no localStorage
                       window.location.href = "hospital.html";
                     } else {
-                      console.error("Usuário não encontrado");
+                      showErrorAlert("Usuário não encontrado");
                     }
                   })
                   .catch((error) => {
-                    console.error("Erro ao buscar usuário no Firestore:", error);
+                    showErrorAlert("Erro ao buscar usuário no Firestore: " + error);
                   });
               }
             })
             .catch((error) => {
-              console.error("Erro ao buscar usuário no Firestore:", error);
+              showErrorAlert("Erro ao buscar usuário no Firestore: " + error);
             });
         })
         .catch((error) => {
-          console.error("Erro ao autenticar usuário:", error);
+          showErrorAlert("E-mail ou Senha incorretos!" );
         });
+    }
+
+    function showErrorAlert(message) {
+      alert(message);
     }
   </script>
 </body>
