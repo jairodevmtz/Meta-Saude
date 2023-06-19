@@ -57,7 +57,8 @@
 
     const btnSim = document.getElementById('btn-sim');
     const urlParams = new URLSearchParams(window.location.search);
-    const pacienteId = urlParams.get('pacienteId');
+    //const pacienteId = urlParams.get('pacienteId');
+    const pacienteId = urlParams.get('pacienteId') || '';
 
     btnSim.addEventListener('click', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -70,8 +71,9 @@
       const periodo = urlParams.get('periodo');
       const obs = urlParams.get('obs');
       const oper = urlParams.get('oper');
+      const operadora = urlParams.get('operadora');
 
-      enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper)
+      enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora)
         .then(() => {
           alert('Oferta enviada com sucesso!');
           window.location.href = 'principal.html';
@@ -81,7 +83,7 @@
         });
     });
 
-    function enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper) {
+    function enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora) {
       if (!ofertaId) {
         console.log("ID do paciente não fornecido na URL");
         return Promise.reject(new Error("ID do paciente não fornecido na URL"));
@@ -95,6 +97,7 @@
           periodo: periodo,
           obs: obs,
           oper: 2,
+          operadora: operadora, // Adiciona o campo "operadora" ao documento
         };
 
         return db.collection('recebidos').add(recebidoData);
