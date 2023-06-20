@@ -1,7 +1,18 @@
-.bg-success {
-  --bs-success-rgb: 20, 300, 14;
+.navbar {
+  /* --bs-success-rgb: 20, 300, 14;*/
+  background-color: rgba(49, 75, 122);
   border-bottom: 1px solid #0a0a0a;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 #topo:hover {
@@ -17,7 +28,13 @@
   height: 30vh;
 }
 
-
+#img2 {
+  margin-left: 20em;
+  margin-top: 20vh;
+  /* Aumentamos a margem superior para posicionar abaixo da img1 */
+  width: 30vh;
+  height: 30vh;
+}
 
 #img3 {
   margin-right: 20em;
@@ -42,7 +59,21 @@
   color: blue;
 }
 
+#i2 {
+  text-align: right;
+  color: black;
+  position: absolute;
+  left: 22%;
+  padding: 2vh;
+  margin-top: 80vh;
+  font-size: 3vh;
+  text-decoration: none;
+  cursor: pointer;
+}
 
+#i2:hover {
+  color: blue;
+}
 
 #i3 {
   text-align: left;
@@ -63,4 +94,3 @@
 #topo:hover {
   background-color: #ffffff;
 }
-

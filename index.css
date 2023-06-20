@@ -5,12 +5,13 @@
 
 body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: rgb(6, 252, 100);
+    background-color: rgb(247, 248, 248);
+  /*  background-color: rgb(6, 248, 172);*/
     color: black;
 }
 
 .container {
-    background-color: rgba(34, 34, 41, 0.5);
+    background-color: rgba(49, 75, 122);
     margin: auto auto;
     padding: 8vh;
     border-radius: 2vh;
@@ -24,6 +25,7 @@ body {
 }
 
 h2 {
+    color: white;
     font-size: 6vh;
     font-weight: 600;
     padding-bottom: 5vh;
@@ -37,6 +39,7 @@ h2 {
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    color: white;
 }
 
 .form-group input {
@@ -48,7 +51,7 @@ h2 {
 }
 
 .form-group button {
-    background-color: #05dd22;
+    background-color: rgba(102, 134, 193);
     color: #fff;
     border: none;
     border-radius: 5px;

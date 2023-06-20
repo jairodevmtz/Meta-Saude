@@ -1,40 +1,50 @@
-.bg-success {
-    --bs-success-rgb: 20, 300, 14;
-    border-bottom: 1px solid #0a0a0a;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-  
-  #topo:hover {
-    background-color: #ffffff;
-  
-  }
-  
+.navbar {
+  /* --bs-success-rgb: 20, 300, 14;*/
+  background-color: rgba(49, 75, 122);
+  border-bottom: 1px solid #0a0a0a;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
-  
-  #img2 {
-    padding-top: 3vh;
-    width: 30vh;
-    height: 30vh;
-  }
-  
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
-  
+#topo:hover {
+  background-color: #ffffff;
 
-  
-  #i2 {
-    text-align: center;
-    color: black;
-    position: absolute;
-    left: 42%;
-    padding: 2vh;
-    font-size: 3vh;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  #i2:hover {
-    color: blue;
-  }
-  
+}
 
-  
+.logo {
+  color: white;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#img2 {
+  padding-top: 3vh;
+  width: 30vh;
+  height: 30vh;
+}
+
+
+
+
+
+#i2 {
+  text-align: center;
+  color: black;
+  position: absolute;
+  left: 42%;
+  padding: 2vh;
+  font-size: 3vh;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#i2:hover {
+  color: blue;
+}

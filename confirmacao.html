@@ -14,103 +14,109 @@
 
 <body>
 
-  <header>
-    <div class="topnav" id="myTopnav">
-      <a href="#contato">Contato</a>
-      <a href="#medicos">Médicos</a>
-      <a href="#horarios">Horários</a>
-      <a href="#usuarios" class="active">Usuários</a>
-      <div class="brand"><a href="principal.html">Meta Saúde</a></div>
-    </div>
-  </header>
+  <nav>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <!--<a class="navbar-brand" href="#">Meta Saúde</a>-->
+        <a class="navbar-brand" style="color: white;" href="principal.html">
+          <img src="img/icons8-coração-com-pulso-48.png" alt="Bootstrap" width="55" height="45">Meta Saúde
+        </a>
 
-  <ul class="breadcrumb">
-    <li><a href="principal.html">Home > </a></li>
-    <li><a href="paciente.html"> Cadastros > </a></li>
-    <li><a href="recebidos.html"> Recebidos > </a></li>
-    <li>Confirmação</li>
-  </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
 
-  <h1>Oferta Confirmada</h1>
-  <form id="ofertaForm">
-    <h1>Confirmando a oferta</h1>
-    <div class="button">
-      <button id="btn-sim" type="button">Sim</button>
-    </div>
-  </form>
 
-  </form>
+    <ul class="breadcrumb">
+      <li><a href="principal.html">Home > </a></li>
+      <li><a href="paciente.html"> Cadastros > </a></li>
+      <li><a href="recebidos.html"> Recebidos > </a></li>
+      <li>Confirmação</li>
+    </ul>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-  <script src="user.js"></script>
-  <script>
+    <h1>Oferta Confirmada</h1>
+    <form id="ofertaForm">
+      <h1>Confirmando a oferta</h1>
+      <div class="button">
+        <button id="btn-sim" type="button">Sim</button>
+      </div>
+    </form>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
-      authDomain: "meta-sau.firebaseapp.com",
-      databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
-      projectId: "meta-sau",
-      storageBucket: "meta-sau.appspot.com",
-      messagingSenderId: "635471066942",
-      appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
-    };
+    </form>
 
-    firebase.initializeApp(firebaseConfig);
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="user.js"></script>
+    <script>
 
-    const db = firebase.firestore();
+      const firebaseConfig = {
+        apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
+        authDomain: "meta-sau.firebaseapp.com",
+        databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
+        projectId: "meta-sau",
+        storageBucket: "meta-sau.appspot.com",
+        messagingSenderId: "635471066942",
+        appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+      };
 
-    const btnSim = document.getElementById('btn-sim');
-    const urlParams = new URLSearchParams(window.location.search);
-    //const pacienteId = urlParams.get('pacienteId');
-    const pacienteId = urlParams.get('pacienteId') || '';
+      firebase.initializeApp(firebaseConfig);
 
-    btnSim.addEventListener('click', () => {
+      const db = firebase.firestore();
+
+      const btnSim = document.getElementById('btn-sim');
       const urlParams = new URLSearchParams(window.location.search);
-      const ofertaId = urlParams.get('id'); // Obter o ID da oferta da URL
-      const pacienteId = urlParams.get('pacienteId'); // Obter o ID do paciente da URL
-      const nome = urlParams.get('nome');
-      const email = urlParams.get('email');
-      const telefone = urlParams.get('telefone');
-      const valor = urlParams.get('valor');
-      const periodo = urlParams.get('periodo');
-      const obs = urlParams.get('obs');
-      const oper = urlParams.get('oper');
-      const operadora = urlParams.get('operadora');
+      //const pacienteId = urlParams.get('pacienteId');
+      const pacienteId = urlParams.get('pacienteId') || '';
 
-      enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora)
-        .then(() => {
-          alert('Oferta enviada com sucesso!');
-          window.location.href = 'principal.html';
-        })
-        .catch((error) => {
-          console.error('Erro ao enviar oferta:', error);
-        });
-    });
+      btnSim.addEventListener('click', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ofertaId = urlParams.get('id'); // Obter o ID da oferta da URL
+        const pacienteId = urlParams.get('pacienteId'); // Obter o ID do paciente da URL
+        const nome = urlParams.get('nome');
+        const email = urlParams.get('email');
+        const telefone = urlParams.get('telefone');
+        const valor = urlParams.get('valor');
+        const periodo = urlParams.get('periodo');
+        const obs = urlParams.get('obs');
+        const oper = urlParams.get('oper');
+        const operadora = urlParams.get('operadora');
 
-    function enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora) {
-      if (!ofertaId) {
-        console.log("ID do paciente não fornecido na URL");
-        return Promise.reject(new Error("ID do paciente não fornecido na URL"));
-      } else {
-        const recebidoData = {
-          ofertaId: ofertaId,
-          nome: nome,
-          email: email,
-          telefone: telefone,
-          valor: valor,
-          periodo: periodo,
-          obs: obs,
-          oper: 2,
-          operadora: operadora, // Adiciona o campo "operadora" ao documento
-        };
+        enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora)
+          .then(() => {
+            alert('Oferta enviada com sucesso!');
+            window.location.href = 'principal.html';
+          })
+          .catch((error) => {
+            console.error('Erro ao enviar oferta:', error);
+          });
+      });
 
-        return db.collection('recebidos').add(recebidoData);
+      function enviarOferta(ofertaId, nome, email, telefone, valor, periodo, obs, oper, operadora) {
+        if (!ofertaId) {
+          console.log("ID do paciente não fornecido na URL");
+          return Promise.reject(new Error("ID do paciente não fornecido na URL"));
+        } else {
+          const recebidoData = {
+            ofertaId: ofertaId,
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            valor: valor,
+            periodo: periodo,
+            obs: obs,
+            oper: 2,
+            operadora: operadora, // Adiciona o campo "operadora" ao documento
+          };
+
+          return db.collection('recebidos').add(recebidoData);
+        }
       }
-    }
-  </script>
+    </script>
 
 
 </body>
