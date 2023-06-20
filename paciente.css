@@ -49,6 +49,31 @@ body {
     display: none;
 }
 
+/* Style the list */
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+    padding: 4px;
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: none;
+}
+
 h1 {
     text-align: center;
 }

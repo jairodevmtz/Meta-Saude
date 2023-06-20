@@ -12,6 +12,11 @@
 <body>
   <h1>Oferta Recebidas</h1>
 
+  <ul class="breadcrumb">
+    <li><a href="principal.html">Home ></a></li>
+    <li>Recebidos</li>
+  </ul>
+
   <table id="data-table">
     <thead>
       <tr>
@@ -131,7 +136,7 @@
                       // Verifique se o ID do link corresponde ao paciente atual
                       if (linkId === link.id) {
                         // Atualize o texto do link para "Oferta já Feita"
-                       // link.textContent = "Oferta já Feita";
+                        // link.textContent = "Oferta já Feita";
                         link.setAttribute("class", "disabled");
                         link.setAttribute("style", "color: black;");
                         link.innerHTML = "Oferta Recebida";

@@ -16,7 +16,7 @@ body {
 
 /* Add o black no background color na top navigation */
 .topnav {
-    
+
     background-color: transparent;
     overflow: hidden;
     border-bottom: 1px solid #0a0a0a;
@@ -47,6 +47,31 @@ body {
 /* Ocultar o link que deve abrir e fechar o topnav em telas pequenas */
 .topnav .icon {
     display: none;
+}
+
+/* Style the list */
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+    padding: 4px;
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: none;
 }
 
 h1 {
@@ -134,8 +159,9 @@ button {
     height: 3em;
 }
 
-button:hover{
-    background-color: rgb(5, 138, 5);;
+button:hover {
+    background-color: rgb(5, 138, 5);
+    ;
 }
 
 #btval {
@@ -148,11 +174,11 @@ button:hover{
     height: 3em;
 }
 
-#btval:hover{
-    background-color: rgb(5, 138, 5);;
+#btval:hover {
+    background-color: rgb(5, 138, 5);
+    ;
 }
 
-#botao{
+#botao {
     margin-left: 16em;
 }
-
