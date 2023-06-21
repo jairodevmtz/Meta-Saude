@@ -84,54 +84,80 @@
             });
 
             function buscarPacientes(login) {
-                // Consultar a coleção 'usuarios' usando o login do usuário
+                // Verificar se o usuário está na coleção 'usuarios' ou 'hospitais'
                 db.collection('usuarios').where('login', '==', login).get().then((querySnapshot) => {
                     if (querySnapshot.empty) {
-                        // Não foi encontrado nenhum documento correspondente ao login do usuário
+                        // Não foi encontrado nenhum documento correspondente ao login do usuário na coleção 'usuarios'
                         console.log("Usuário não encontrado na coleção 'usuarios'");
-                        return;
-                    }
 
-                    const doc = querySnapshot.docs[0];
-                    const data = doc.data();
-                    const operadora = data.operadora;
+                        // Verificar na coleção 'hospitais'
+                        db.collection('hospitais').where('login', '==', login).get().then((hospitalSnapshot) => {
+                            if (hospitalSnapshot.empty) {
+                                // Não foi encontrado nenhum documento correspondente ao login do usuário na coleção 'hospitais'
+                                console.log("Usuário não encontrado na coleção 'hospitais'");
+                                return;
+                            }
 
-                    // Agora você pode usar a operadora encontrada como necessário
-                    console.log("Operadora do usuário:", operadora);
-
-                    db.collection('pacientes').where('operadora', '==', operadora).get().then((querySnapshot) => {
-                        tableBody.innerHTML = '';
-
-                        querySnapshot.forEach((doc) => {
-                            const data = doc.data();
-                            const row = document.createElement('tr');
-
-                            const nameCell = document.createElement('td');
-                            const sexoCell = document.createElement('td');
-                            // const operadoraCell = document.createElement('td');
-                            const idadeCell = document.createElement('td');
-                            const carteiraCell = document.createElement('td');
-                            const diagCell = document.createElement('td');
-
-                            nameCell.textContent = data.name;
-                            sexoCell.textContent = data.sexo;
-                            // operadoraCell.textContent = data.operadora;
-                            idadeCell.textContent = data.aniv;
-                            carteiraCell.textContent = data.carteira;
-                            diagCell.textContent = data.diag;
-
-                            row.appendChild(nameCell);
-                            row.appendChild(sexoCell);
-                            //  row.appendChild(operadoraCell);
-                            row.appendChild(idadeCell);
-                            row.appendChild(carteiraCell);
-                            row.appendChild(diagCell);
-
-                            tableBody.appendChild(row);
+                            // Usuário encontrado na coleção 'hospitais', exibir todos os pacientes
+                            exibirPacientes();
+                        }).catch((error) => {
+                            console.log("Erro ao obter os dados do Cloud Firestore:", error);
                         });
-                    }).catch((error) => {
-                        console.log("Erro ao obter os dados do Cloud Firestore:", error);
+                    } else {
+                        // Usuário encontrado na coleção 'usuarios', buscar pacientes com base na operadora
+                        const doc = querySnapshot.docs[0];
+                        const data = doc.data();
+                        const operadora = data.operadora;
+
+                        // Agora você pode usar a operadora encontrada como necessário
+                        console.log("Operadora do usuário:", operadora);
+
+                        exibirPacientes(operadora);
+                    }
+                }).catch((error) => {
+                    console.log("Erro ao obter os dados do Cloud Firestore:", error);
+                });
+            }
+
+            function exibirPacientes(operadora) {
+                let query = db.collection('pacientes');
+
+                if (operadora) {
+                    query = query.where('operadora', '==', operadora);
+                } else {
+                    console.log('Operadora não encontrada para o usuário.');
+                    return;
+                }
+
+                query.get().then((querySnapshot) => {
+                    tableBody.innerHTML = '';
+
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const row = document.createElement('tr');
+
+                        const nameCell = document.createElement('td');
+                        const sexoCell = document.createElement('td');
+                        const idadeCell = document.createElement('td');
+                        const carteiraCell = document.createElement('td');
+                        const diagCell = document.createElement('td');
+
+                        nameCell.textContent = data.name;
+                        sexoCell.textContent = data.sexo;
+                        idadeCell.textContent = data.aniv;
+                        carteiraCell.textContent = data.carteira;
+                        diagCell.textContent = data.diag;
+
+                        row.appendChild(nameCell);
+                        row.appendChild(sexoCell);
+                        row.appendChild(idadeCell);
+                        row.appendChild(carteiraCell);
+                        row.appendChild(diagCell);
+
+                        tableBody.appendChild(row);
                     });
+                }).catch((error) => {
+                    console.log("Erro ao obter os dados do Cloud Firestore:", error);
                 });
             }
         </script>
