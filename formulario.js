@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAlc--Ud8EsT7_D9np3AgUS8-jN18clkOI",
-  authDomain: "meta-sau.firebaseapp.com",
-  databaseURL: "https://meta-sau-default-rtdb.firebaseio.com",
-  projectId: "meta-sau",
-  storageBucket: "meta-sau.appspot.com",
-  messagingSenderId: "635471066942",
-  appId: "1:635471066942:web:5a080be8301c56c1f0de6f"
+  apiKey: "AIzaSyB7Uaucaj_P_7fUjCwm66daf_UVpOMFpRc",
+  authDomain: "met-saud.firebaseapp.com",
+  databaseURL: "https://met-saud-default-rtdb.firebaseio.com",
+  projectId: "met-saud",
+  storageBucket: "met-saud.appspot.com",
+  messagingSenderId: "412539453888",
+  appId: "1:412539453888:web:598f256cf829e2fd814825"
 };
 
 firebase.initializeApp(firebaseConfig);
