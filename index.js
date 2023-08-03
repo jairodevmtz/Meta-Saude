@@ -15,3 +15,4 @@ firebase.auth().signInWithEmailAndPassword(email, password)
         const errorMessage = error.message;
         console.error('Erro durante o login:', errorCode, errorMessage);
     });
+
